@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<html lang="en">  
+<head>
+<title>Account</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<meta content="game, scifi, text adventure, adventure" name="keywords">
+<meta content="Starship Hope - The Text Adventure" name="description">  
+<link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">  
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">  
+<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}"> 
+<link href="https://fonts.googleapis.com/css?family=Phudu" rel="stylesheet">   
+
+</head>
+<body>
+
+ <!-- Navbar -->
+   <nav class="navbar navbar-expand-lg navbar-dark bg-dark" role="navigation" aria-label="Main Navigation">
+   <a class="navbar-brand" href="/"><img src="{{ url_for('static', filename='img/hope.png') }}" class="img-fluid nav-logo" alt="Starship Hope logo"> </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse nav-menu justify-content-end" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="/account">
+          {% if current_user.profile_picture %}
+          <img src="{{ url_for('static', filename='uploads/' + current_user.profile_picture) }}" class="img-fluid profile-img" alt="Profile Picture">
+          {% endif %}
+          Hello, {{ current_user.username }}</a>
+        <a class="nav-item nav-link" href="/game">Game</a>
+        <a class="nav-item nav-link" href="/logout">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- Account -->
+  <div class="container-fluid mt-4" id="account" role="region" aria-label="Account page">
+
+  <a href="/game" class="btn btn-secondary back-game">
+    <i class="bi bi-arrow-left-circle-fill " aria-label="Back to the game"></i> Back to Game </a>
+   
+<div id="avatar" role="region" aria-label="Profile picture">
+    <h4>Your Profile Picture:</h4>
+    {% if current_user.profile_picture %}
+    <img src="{{ url_for('static', filename='uploads/' + current_user.profile_picture) }}" class="img-fluid account-img" alt="Profile Picture">
+    {% else %}
+    <img src="{{ url_for('static', filename='img/person.png') }}" class="img-fluid account-img" alt="Generic Profile Picture">
+    {% endif %}  
+  </div>
+ <div id="image-upload" aria-label="Upload a new profile picture">    
+  <form id = "avatar-upload" enctype="multipart/form-data">
+    <label for="profile_picture"">Upload a profile picture</label>
+    {{ profile_picture_form.csrf_token }} 
+    <div class="form-group">
+        
+        {{ profile_picture_form.profile_picture(class="form-control-file", id="profile_picture") }}
+    </div>
+    <button type="submit" class="btn btn-primary" onclick="handleFormSubmission('avatar-upload', 'upload-message', '/upload_avatar')" aria-label="Upload file">Upload</button>
+</form>
+   <div id="upload-message" aria-label="upload error message" aria-live="polite">
+   </div>
+ </div>
+ <div id="change-username-password" role="region" aria-label="Change username or password">  
+<h4>Change Username</h4>
+    <form id="change-username-form">
+        {{ change_username_form.csrf_token }}
+        <div class="form-group">
+            <label for="new_username" aria-label="Enter new username">{{ change_username_form.new_username.label }}</label>
+            {{ change_username_form.new_username(class="form-control") }}
+        </div>
+        <button type="submit" class="btn btn-primary" onclick="handleFormSubmission('change-username-form', 'change-username-message', '/change_username')" aria-label="Submit new username">Change Username</button>
+    </form>   
+<div id="change-username-message" aria-label="change username error message" aria-live="polite">
+   
+</div>
+   
+<h4>Change Password</h4>
+  <form id="change-password-form">
+        {{ change_password_form.csrf_token }} 
+        <div class="form-group">
+            <label for="current_password" aria-label="Enter current password">{{ change_password_form.current_password.label(class="form-label") }}</label>
+            {{ change_password_form.current_password(class="form-control") }}
+        </div>
+        <div class="form-group">
+            <label for="new_password" aria-label="Enter new password">{{ change_password_form.new_password.label(class="form-label") }}</label>
+            {{ change_password_form.new_password(class="form-control") }}
+        </div>
+        <div class="form-group">
+            <label for="confirm_new_password" aria-label="Confirm new password">{{ change_password_form.confirm_new_password.label(class="form-label") }}</label>
+            {{ change_password_form.confirm_new_password(class="form-control") }}
+        </div>
+        <button type="submit" class="btn btn-primary" onclick="handleFormSubmission('change-password-form', 'change-password-message', '/change_password')" aria-label="Submit new password">Change Password</button>
+    
+    </form>
+ 
+   <div id="change-password-message" aria-label="change password error message" aria-live="polite">
+    </div>  
+ </div>
+ <div id = "delete-account" role="region" aria-label="Delete account">  
+<h4>Delete Account</h4>
+ <form id = "delete-account-form">
+        {{ delete_user_form.csrf_token }}
+        <div class="form-group">
+            <label for="password" aria-label="Enter current password">{{ delete_user_form.password.label(class="form-label") }}</label>
+            {{ delete_user_form.password(class="form-control") }}
+        </div>
+        <button type="submit" class="btn btn-danger" onclick="handleFormSubmission('delete-account-form', 'delete-account-message', '/delete_user')" aria-label="Delete account now">Delete Account</button>
+    </form>   
+
+   <div id = "delete-account-message" aria-label="delete account error message" aria-live="polite">
+   </div>   
+ 
+ </div>
+
+<a href="/game" class="btn btn-secondary back-game">
+    <i class="bi bi-arrow-left-circle-fill " aria-label="Back to the game"></i> Back to Game
+</a>  
+    
+</div>
+
+  
+<!-- SCRIPTS -->
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>   
+<script src="{{ url_for('static', filename='main.js') }}"></script>    
+
+
+</body>
+</html>

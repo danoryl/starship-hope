@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<html lang="en">
+<head>
+    <title>Login - Register</title>
+     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="game, scifi, text adventure, adventure" name="keywords">
+    <meta content="Starship Hope - The Text Adventure" name="description">
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}"> 
+   <link href="https://fonts.googleapis.com/css?family=Phudu" rel="stylesheet">   
+ 
+</head>
+<body>
+    
+  <!-- Navbar -->
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" role="navigation" aria-label="Main Navigation">
+    <a class="navbar-brand" href="/"><img src="{{ url_for('static', filename='img/hope.png') }}" class="img-fluid nav-logo" alt="Starship Hope logo"> </a>
+    
+  </nav> 
+  
+  
+  
+ <div class="container-fluid mt-4"　id="login-register" role="region" aria-label ="Login or Register"> 
+   
+   <h1>Enter the world of Starship Hope</h1>
+   <p>Login or register to play Starship Hope: the text adventure!</p>
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="login-tab" data-toggle="pill" href="#login" role="tab" aria-controls="pills-login" aria-selected="true" aria-label="Login">Login</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="register-tab" data-toggle="pill" href="#register" role="tab" aria-controls="pills-register" aria-selected="false" aria-label="Register">Register</a>
+  </li>
+  </ul> 
+   <div class="tab-content" id="pills-tabContent">
+  <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+    <h4>Login</h4> 
+    <form id="login-form">
+    {{ login_form.csrf_token }}
+    <div class="form-group">
+        <label for="username" aria-label="Enter username">{{ login_form.username.label(class="form-label") }}</label>
+        {{ login_form.username(class="form-control") }}
+    </div>
+    <div class="form-group">
+        <label for="password" aria-label="Enter password">{{ login_form.password.label(class="form-label") }}</label>
+        {{ login_form.password(class="form-control") }}
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary" name="action" value="login" onclick="handleFormSubmission('login-form', 'login-message', '/login')" aria-label="Submit login information">Login</button>
+    </form>
+    <div id="login-message" aria-label="login error message" aria-live="polite">
+    </div>
+  </div>
+  <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+   <h4>Register</h4>
+    <form id="register-form">
+        {{ register_form.csrf_token }} 
+        <div class="form-group">
+        <label for="username">{{ register_form.username.label(class="form-label") }}</label>
+        {{ register_form.username(class="form-control") }}
+        </div>
+        <div class="form-group">
+        <label for="password">{{ register_form.password.label(class="form-label") }}</label>
+         {{ register_form.password(class="form-control") }}
+        </div>
+        <div class="form-group">
+        <label for="confirm_password">{{ register_form.confirm_password.label(class="form-label") }}</label>
+        {{ register_form.confirm_password(class="form-control") }}
+</div>
+    <br>
+    <button type="submit" class="btn btn-primary" name="action" value="register" onclick="handleFormSubmission('register-form', 'register-message', '/register')" aria-label="Submit register information">Register</button>
+    </form> 
+    <div id="register-message" aria-label="register error message" aria-live="polite">
+    </div>
+    
+  </div>
+  </div> 
+
+  
+   
+ </div>
+
+ 
+
+
+  <!-- SCRIPTS -->
+ 
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>  
+<script src="{{ url_for('static', filename='main.js') }}"></script> 
+
+   
+
+</body>
+</html>

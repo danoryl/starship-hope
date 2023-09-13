@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Starship Hope</title>
+    <meta content="game, scifi, text adventure, adventure" name="keywords">
+    <meta content="Starship Hope - The Text Adventure" name="description">
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}"> 
+ <link href="https://fonts.googleapis.com/css?family=Phudu" rel="stylesheet">   
+
+
+</head>
+<body>
+  <!-- Navbar -->
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" role="navigation" aria-label="Main Navigation">
+    <a class="navbar-brand" href="/"><img src="{{ url_for('static', filename='img/hope.png') }}" class="img-fluid nav-logo" alt="Starship Hope logo"> </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse nav-menu justify-content-end" id="navbarNavAltMarkup">
+      <div class="navbar-nav ">
+         <a class="nav-item nav-link " href="#hope">The Hope</a>
+         <a class="nav-item nav-link " href="#crew">The Crew</a> 
+        {% if user_logged_in %}
+        <a class="nav-item nav-link " href="/game">Game</a>
+        {% else %}
+        <a class="nav-item nav-link " href="/login">Login</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+   
+<!-- Game info -->
+<img src="{{ url_for('static', filename='img/index_title.jpg') }}" class="img-fluid title" alt="Starship Hope - The text adventure" role="banner">
+<div class="container-fluid mt-4" id="game-info" role="region" aria-label="Game Information">
+<row class="row info-title">  
+<center><h5 class="no-margin">Step into a weird space world with the Starship Hope and its crew</h5></center>
+  </row>
+  <row class="row info-description">
+    <p>In the middle of the 21st century, Earth is fighting its first space battle against an invading fleet known as the "Venster," ugly and malevolent aliens that vaguely resemble large potatoes with monstrous mouths.
+Caught off guard, humanity is decimated even before it can organize a response.
+Fortunately, shortly after the arrival of the Venster, another alien civilization contacts our planet: the Atarians, shape-shifting beings composed of pure energy who could wipe out the entire Venster fleet with a single thought, but they don't, otherwise it would be a very boring story.
+Instead, they aid the fledgling Earth Resistance by building the Starship Hope for us, capable of guiding the Earth fleet and defeating the Venster. The Hope is the first spacecraft equipped with an HyperSphere, a technology similar to the Warp drive, but rounder and cooler.
+You, my dear player, have enlisted in the Resistance a few months before the start of this adventure, determined to contribute to saving our planet. During the first real battle you are aboard a support ship when it's disabled by the Venster. Having managed to escape, you now float in the void with your spacesuit, when you see not far from you the unmistakable silhouette of the Hope, with its HyperSphere. Something is wrong, because even the Hope seems completely inert, lifeless. Your suit's portable analyzer shows no signs of human life on board. What could have happened?
+    </p>
+    <center><h5>Embark on this adventure to discover the fate of the Starship Hope and its crew!</h5></center>
+<center> <a href="/game" class="btn btn-primary btn-start" aria-label="Start the game">Start the game</a></center>
+<div class="container-fluid mt-4 alert-error" id="demo" aria-label="Warning development software">  
+<center>Warning: this game is just a demo, running on a development server. There is just one playable level and there might be bugs or unexpected behaviour.</center>
+</div> 
+</row> 
+</div> <!-- end game info and start --> 
+  
+
+ <!-- Starship Hope --> 
+  <div class="container-fluid mt-4" id="hope" role="region" aria-label="The Starship Hope">  
+    <center><h2>The Starship Hope</h2></center>
+   <center>  <img src="{{ url_for('static', filename='img/hope_build.jpg') }}" class="img-fluid" alt="Starship Hope construction"></center>
+
+   <p> The Hope is comprised of three decks, complete with everything a spaceship needs: a spacious command deck, laboratories, crew quarters equipped with every comfort, bathrooms (even though they're not visible in the game, because noone wants to see you poop), and above all, a mess hall with a fantastic replicator, also thanks to Atarian technology.
+Furthermore, the HyperSphere is so delighted to travel through space that it emits a distinct sound, <i>a singurgle</i>, every time you activate it. Feeling tempted to buy the ship, aren't you? Unfortunately, it's not for sale, but you can take it for a spin by playing this text adventure!</p>
+ 
+   
+
+ </div>     
+  <!-- Crew -->
+  <div class="container-fluid mt-4" id="crew" role="region" aria-label="The Crew">  
+<center><h2>The Crew</h2></center>
+  <div class="row">
+  <div class="col-sm-6 card-column">
+<div class="card w-100">
+  <img class="card-img-top" src="{{ url_for('static', filename='img/henry.jpg') }}" alt="Captain Henry Shepard" aria-hidden="true">
+  <div class="card-body">
+    <h5 class="card-title" aria-label="Henry Shepard - The Capitain">Henry Shepard</h5>
+    <h6 class="card-title">Captain</h6>
+    <p class="card-text">The commander of the Hope is a former NASA astronaut, chosen as the best candidate to lead the desperate mission to save humanity. Resolute, strong, yet aware of his own limitations, he can lighten any situation with his sense of humor.
+
+He's an avid Coca-Cola drinker, having it synthesized specifically by the alien friends after the original factories on Earth were destroyed. Unfortunately, this version has a peculiar chicken aroma, which he absolutely loves.</p>
+     </div>
+  </div>
+</div>
+
+<div class="col-sm-6 card-column">    
+<div class="card w-100">
+  <img class="card-img-top" src="{{ url_for('static', filename='img/aria.jpg') }}" alt="First officer Aria Marconi" aria-hidden="true">
+  <div class="card-body">
+    <h5 class="card-title" aria-label="Aria Marconi - The First Officer">Aria Marconi</h5>
+    <h6 class="card-title">First officer</h6>
+    <p class="card-text">Shepard's right-hand is a stunning Italian woman. Intelligent and brilliant, with a sweet and gentle appearance, she is actually capable of killing in thousands of different ways, thanks to her training in martial arts and her icy gaze. She's also the only one who can rein in Ian Volk's egotistical chatter.
+
+She never separates from her weapons, the mighty silaha, which can be used both as phase guns and lightsabers, making them highly versatile for ranged and close-quarters combat.</p>
+     </div>
+</div>
+
+</div>
+ <div class="col-sm-6 card-column">
+<div class="card w-100">
+  <img class="card-img-top" src="{{ url_for('static', filename='img/ian.jpg') }}" alt="Scientific Officer Ian Volk" aria-hidden="true">
+  <div class="card-body">
+    <h5 class="card-title"　aria-label="Ian Volk - The Scientific Officer">Ian Volk</h5>
+    <h6 class="card-title">Scientific officer</h6>
+    <p class="card-text">The Russian scientist aboard the Hope is a genius beyond measure, truly unparalleled. No, he won't be outdone by the next model, because that's just not possible.
+
+Egocentric, selfish, fearful, and always ready to shirk his responsibilities, he actually doesn't back down from any obstacle, especially if it's of a technical nature. He's capable of mastering any Earth and alien technology, but not emotions: he's head over heels in love with Aria, and every glance from her turns him into a quivering jelly.</p>
+     </div>
+  </div>
+</div>
+<div class="col-sm-6 card-column">    
+<div class="card w-100">
+  <img class="card-img-top" src="{{ url_for('static', filename='img/buzz.jpg') }}" alt="Buzz the Atarian" aria-hidden="true">
+  <div class="card-body">
+    <h5 class="card-title" aria-label="Buzz - The Atarian liaison officer">Buzz</h5>
+    <h6 class="card-title">Atarian liaison officer</h6>
+    <p class="card-text">Buzz is the alien of the group, with an unpronounceable original name, nicknamed so due to the noise he makes during his transformations. He's actually a shape-shifter, capable of replicating any person, animal, or thing: the Atarians are beings of pure energy, originally resembling huge sparkling entities, capable of altering the quantum structure of spacetime.
+
+Like all his kind, he has a penchant for Talosian grog, producing copious amounts of it as needed to gulp down alone or with his crewmates. </p>
+     </div>
+    </div>
+    </div>
+  </div> 
+  </div>   
+</div> <!-- game info div end -->
+  
+
+
+<!-- SCRIPTS -->
+ 
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>   
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+</body>
+</html>

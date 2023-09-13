@@ -1,0 +1,241 @@
+:root {
+  --primary-color: #007bff; /* primary color value */
+}
+
+body {
+  background-color: rgb(26 32 49);
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Phudu', sans-serif;
+    font-weight: 600;
+    margin-top: 1.5rem!important;
+}
+
+dl, ol, ul {
+    margin-bottom: 0!important;
+    list-style-type: none!important;
+    padding-left: 0.5rem!important;
+}
+
+.btn {
+    margin-top: 0.7rem!important;
+}
+
+button.btn.btn-primary.position-absolute.end-0.sub-com {
+    margin-top: 0!important;
+}
+
+.form-label {
+    margin-bottom: .1rem!important;
+    margin-top: .5rem!important;
+    width: 100%!important;
+}
+.bi { /*bootstrap icons*/
+  font-size: 1.2em!important;
+}
+  
+.container-fluid {
+  color: white;
+  width: 90%!important;
+}
+
+#all_commands {
+  margin: 10px;
+}
+
+#output {
+  min-height:200px;
+  width: 100%;
+  padding: 10px;
+  background-color: rgb(56, 66, 92);
+  margin-bottom: 20px;
+}
+
+
+nav.navbar.navbar-expand-lg.navbar-dark.bg-dark {
+  background-image: url("/static/img/nav-bg.jpg");
+  width: 100%;
+  padding: 0 20px 0 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  
+}
+
+nav.navbar.navbar-expand-lg.navbar-dark.bg-dark::before {
+  content: ""; /* Create a pseudo-element */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2); 
+  pointer-events: none;
+}
+
+.navbar-brand{
+ font-size: 2em; 
+ font-weight:bold; 
+
+}
+.nav-logo {
+    width: 50%;
+    padding: 0!important;
+}
+
+.nav-menu {
+  font-size: 1.5em;
+  font-weight:bold;
+  margin-right: 50px;
+}
+
+a.nav-item.nav-link {
+    color: white;
+    font-family: 'Phudu', sans-serif;
+    font-weight: 600;
+}
+
+
+.energybar {
+
+  min-height: 1.5em;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+
+.twitter-typeahead { 
+  flex-grow: 1; 
+  width: 100%; 
+}
+
+.tt-hint, .tt-input, .tt-menu {
+  
+  box-shadow: none!important;
+  border: none!important;
+}
+
+.form-inline {
+  white-space: nowrap;
+}
+
+.tt-menu {
+  background-color: rgb(56, 66, 92); 
+  
+}
+
+.tt-suggestion {
+  padding: 10px; 
+  cursor: pointer;
+}
+
+
+.tt-suggestion.tt-cursor {
+  background-color: var(--primary-color);
+}
+
+.sub-com {
+  height: 100%;
+}
+
+.account-img {
+  max-width: 150px!important;
+}
+
+.profile-img {
+  max-height: 80px!important;
+  margin: 0!important;
+  padding: 20px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+}
+
+.btn-start {
+    padding: 15px 25px 15px 25px;
+    font-size: 1.5em;
+    font-weight: bold;
+    background-color: #006542;
+    border: none;
+}
+
+
+
+
+
+/* INFO SECTION */
+
+img.title {
+  width: 100%;
+}
+
+.manual-title {
+background-image: url("/static/img/nav-bg.jpg");
+height: 200px;
+text-align: center;
+padding-top: 40px;
+width: 100%;
+}
+
+.no-margin {
+  margin-top: 0!important;
+}
+
+
+.info-description {
+  padding: 20px;
+  text-align: justify;
+}
+
+.img-fluid {
+  margin-top:1rem;
+  margin-bottom:1rem;
+}
+
+.card-title {
+  margin-top: 0.8rem!important;
+}
+
+.card-column {
+  display: flex;
+
+}
+
+.card {
+    margin-bottom: 1rem;
+}
+
+.alert-success {
+    background: green;
+    color: white;
+    font-weight: bold;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    
+}
+
+.alert-error {
+    background: red;
+    color: white;
+    font-weight: bold;
+    margin-top: 1rem;
+    padding: 0.5rem;
+}
+
+
+@media (max-width: 768px) {
+    .navbar-brand{
+ font-size: 1.5em; 
+}
+.nav-menu {
+  font-size: 1em;
+}
+
+.container-fluid {
+  width: 100%!important;
+}
+
+}

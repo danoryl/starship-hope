@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Starship Hope</title>
+    <meta content="game, scifi, text adventure, adventure" name="keywords">
+    <meta content="Starship Hope - The Text Adventure" name="description">
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">    
+<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}"> 
+ <link href="https://fonts.googleapis.com/css?family=Phudu" rel="stylesheet">       
+
+
+
+
+</head>
+<body onload="sendInput('init gui')">
+  <!-- Navbar -->
+   <nav class="navbar navbar-expand-lg navbar-dark bg-dark" role="navigation" aria-label="Main Navigation">
+   <a class="navbar-brand" href="/"><img src="{{ url_for('static', filename='img/hope.png') }}" class="img-fluid nav-logo" alt="Starship Hope logo"> </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse nav-menu justify-content-end" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="/account">
+          {% if current_user.profile_picture %}
+          <img src="{{ url_for('static', filename='uploads/' + current_user.profile_picture) }}" class="img-fluid profile-img" alt="Profile Picture">
+          {% endif %}
+          Hello, {{ current_user.username }}</a>
+        <a class="nav-item nav-link" href="#guide">Guide</a>
+        <a class="nav-item nav-link" href="/logout">Logout</a>
+      </div>
+    </div>
+  </nav>
+ 
+ 
+    <!-- Main Game Interface -->
+<div class="container-fluid mt-4" id="game" role="region" aria-label="Main game interface">
+  <div class="row">
+    <div class="col-md-11 d-flex mx-auto">
+      <!-- Progress bar -->
+      <div class="progress flex-grow-1 energybar">
+          <div id="energy-progress" class="progress-bar custom-progress-bar" aria-label="Energy Progress Bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+  </div>
+  
+  </div>
+<!-- Text Input and Submit Button -->
+    <div class="row mt-4" id="command-input" aria-label="User commands input" role="region">
+        
+            <div class="input-group d-flex position-relative">
+             
+              <input type="text" id="user_input" class="form-control flex-grow-1" aria-describedby="input-command" placeholder="Enter your command..." onkeypress="handleKeyPress(event)" aria-label="Enter your command" >
+                <button class="btn btn-primary position-absolute end-0 sub-com" onclick="sendInput()" aria-label="Submit Command" > <i class="bi bi-arrow-right-circle-fill"></i></button>
+             
+        
+        </div>
+    <div id="all_commands" aria-label="List of all available commands">
+    </div>
+      
+    
+    </div>
+    
+<!-- Game Display -->
+  <div class="row mt-4" id="game_display" role="region" aria-label="Game Display">
+        <!-- Game Output -->
+        <div class="col-md-7 d-flex">
+            <div id="output" aria-label="Game output" aria-live="polite"></div>
+        </div>
+        <div class="col-md-5 ">
+            <!-- Room, Items Inventory and map tabs -->
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="room-tab" data-toggle="pill" href="#room" role="tab" aria-controls="pills-room" aria-selected="true" aria-label="Room description"><i class="bi bi-door-open-fill"></i></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="room_items-tab" data-toggle="pill" href="#room_items" role="tab" aria-controls="pills-room_items" aria-selected="false" aria-label="Room items" ><i class="bi bi-columns-gap"></i></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="inventory-tab" data-toggle="pill" href="#inventory" role="tab" aria-controls="pills-inventory" aria-selected="false" aria-label="Inventory"><i class="bi bi-bag-fill"></i></a>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" id="map-tab" data-toggle="pill" href="#map" role="tab" aria-controls="pills-inventory" aria-selected="false" aria-label="Graphical Map" ><i class="bi bi-geo-alt-fill"></i></a>
+  </li>              
+</ul>
+<div class="tab-content" id="pills-tabContent">
+  <div class="tab-pane fade show active" id="room" role="tabpanel" aria-labelledby="room-tab" aria-live="polite"></div>
+  <div class="tab-pane fade" id="room_items" role="tabpanel" aria-labelledby="room_items-tab" aria-live="polite"></div>
+  <div class="tab-pane fade" id="inventory" role="tabpanel" aria-labelledby="inventory-tab" aria-live="polite"></div>
+  <div class="tab-pane fade" id="map" role="tabpanel" aria-labelledby="map-tab" aria-live="polite">
+  <div id="map-title"> <!-- Element to display map title -->
+    <!-- Map title will be inserted here -->
+  </div>
+  <div id="map-container"> <!-- Element to display map -->
+    <!-- Map will be inserted here -->
+  </div>
+  </div>
+</div>
+</div>  <!-- end game tabs -->
+</div>  <!-- end of Game Display -->
+
+  
+</div> <!-- end of Main Game Interface -->
+
+<div class="container-fluid mt-4 alert-error" id="demo" aria-label="Warning - Developement software">  
+<center>Warning: this game is just a demo, running on a development server. There is just one playable level and there might be bugs or unexpected behaviour.</center>
+</div>  
+<div class="container-fluid mt-4" id="guide" role="region" aria-label="Game Manual">  
+
+ <row class="row manual-title">
+  <h2 class="no-margin">Need help?</h2>
+  <h2 class="no-margin">Here's the Guide...</h2>
+  <h4 class="no-margin">(Not the Hitchhiker's one...)</h4> 
+  </row>
+  <p><br>Hello, {{ current_user.username }}. Welcome to Starship Hope: the text adventure! <br>As the name suggest, this game is an old style text adventure, where you interact with the game basically by writing a command in the input box, and reading the result of your actions in the big response box. You can send the command both by using the <i class="bi bi-arrow-right-circle-fill"></i> send button, or just by hitting enter on your keyboard.
+<h5>The game interface</h5>
+Other than the text commands, I've added some visual aids to help you. The game interface is made of four main parts: <b>the energy box</b> and <b>the input box</b> on the top, where you can write your commands (with a nice suggestion and autocomplete dropdown menu, for your convenience), <b>the game response</b> on the left, where you can read all the output of the game, and the <b>room, items and map section</b> on the right, where you have several tabs that help you avoid having to constantly insert commands to remind you where you are and what you have in your bag. But I've left the manual option too, for the text purists!
+<h5>Room, items, inventory and Map</h5>
+Let's explore now briefly the section on the right. Here you have 4 tabs, each with an icon.
+<br><br><b>The <i class="bi bi-door-open-fill"></i> Room Description tab</b>: click this icon to read the description of the room you are in. This tab is updated everytime you move to a new room.
+<br><br><b>The <i class="bi bi-columns-gap"></i> Room Items tab</b>: click this icon to see a list of all the items present in the room. The list shows the number of items, the full name of an item and the short name between brackets. Use the short name for faster typing of commands. You can also just click the link on the item name in the list to execute a "take" command of 1 item. If you want to take multiple items, use the take <i>number item</i> text command.
+<br><br><b>The <i class="bi bi-bag-fill"></i> Inventory tab</b>: click this icon to see a list of all the items that you've collected in your inventory bag. As in the Room items tab, the list shows the number of items, the full name of an item and the short name between brackets. Use the short name for faster typing of commands. You can also just click the link on the item name in the list to execute a "drop" command of 1 item. If you want to drop multiple items, use the take <i>number item</i> text command.
+<br><br><b>The <i class="bi bi-geo-alt-fill"></i> Map tab</b>: if the map of the current location is in your inventory, this tab shows it. But there's more: it's not only for orientation, you can click on any room shown in the map to move there, without having to enter the command manually. Easy, uh? But not for the purists, I know.
+<h5>How to play</h5>
+Text adventures are pretty easy to play: as I've said before, just enter your command and see what happens as result. The objective changes depending on the level. You have to complete the current level main objective before you can advance to the next one. For example, in the first level (currently the only one available), the main objective is to repair the ship and find out what happened to the crew of the Hope. <br>
+To achieve the objective, you'll have to explore rooms, search for visibile or hidden objects, use them and sometimes combine them to create new objects that will help you overcome an obstacle. 
+<h5>The energy system</h5>
+This text adventure has a simple energy system, displayed by the energy bar on the top. Everytime you move to a new room, you loose 1 energy point. You can also loose more energy points by doing special actions (like entering the airlock, at the beginning of the game), or during fights against enemies.<br>
+If you loose all your energy, you die and the game restarts. Use it wisely, than. Luckily, it's very easy to replenish your energy: I don't like very difficult games, let's relax! You can gain a lot of energy by simple eating food or drinking beverages. So make sure you always have some snacks in your inventory, and stay hydrated, my friend!
+<h5>The account page</h5>
+If you click on your name in the top navigation bar, or on your profile picture (if you uploaded one), you can access your account page. This is a simple page where you can: 
+  <li>upload a profile picture, or change the current one</li>
+  <li>change you username</li> 
+  <li>change your current password</li>
+  <li>delete your account</li>  
+<br>
+That's all you need to now to enjoy this adventure. Good luck {{ current_user.username }}!
+  </p>  
+
+
+</div> <!-- game manual end -->  
+
+
+  
+ 
+
+<!-- SCRIPTS -->
+
+ 
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>   
+<script src="https://cdn.jsdelivr.net/npm/konva@8.3.2/konva.min.js"></script>
+<script src="{{ url_for('static', filename='game.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='main.js') }}"></script>  
+
+
+
+
+</body>
+</html>
