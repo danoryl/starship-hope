@@ -49,10 +49,9 @@ function handleFormSubmission(formId, messageId, url) {
 /* NAVBAR */
 
 document.addEventListener("DOMContentLoaded", function () {
-    
-
-    // Smooth scrolling on the navbar links
+    // Smooth scrolling on the navbar links adjusting for navbar height
     var navbarLinks = document.querySelectorAll(".navbar-nav a");
+
     navbarLinks.forEach(function (link) {
         link.addEventListener('click', function (event) {
             if (this.hash !== "") {
@@ -62,11 +61,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 var scrollOptions = {
                     top: targetOffset - 110,
                     behavior: 'smooth',
+                    duration: 500,
+                    
                 };
                 window.scrollTo(scrollOptions);
-
-                
-            }
+                if (window.innerWidth <= 992) {
+                    /* Function to close the mobile menu waiting after the page scrolled on mobile devices
+                    (quick fix - need to check for better solutions for messy scrolling) */
+                    setTimeout(function () {
+                      const navbarToggler = document.querySelector(".navbar-toggler");
+                      if (navbarToggler) {
+                        navbarToggler.click();
+                      }
+                    }, 1000); 
+                }
+      
+            }  
         });
     });
 });
